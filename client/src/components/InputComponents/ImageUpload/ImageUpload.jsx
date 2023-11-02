@@ -30,7 +30,7 @@ const ImageUpload = (props) => {
           {...restFields}
           id="fileInput"
           type="file"
-          accept=".jpg, .png, .jpeg"
+          accept=".jpg, .png, .jpeg, .gif"
           onChange={onChange}
         />
         <label htmlFor="fileInput">Choose file</label>

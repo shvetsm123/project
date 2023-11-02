@@ -7,7 +7,8 @@ const FieldFileInput = ({ classes, name, ...rest }) => {
     labelClass,
     fileNameClass,
     fileInput,
-    previewImage,
+    imagePreview,
+    pdfPreview,
   } = classes;
   const [{ value, ...restFields }, meta, helpers] = useField(name);
   const getFileName = () => {
@@ -25,21 +26,32 @@ const FieldFileInput = ({ classes, name, ...rest }) => {
     if (file) {
       helpers.setValue(file);
 
-      const reader = new FileReader();
-      reader.onload = () => {
-        setPreviewURL(reader.result);
-      };
-      reader.readAsDataURL(file);
+      if (file.type.startsWith('image')) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setPreviewURL(reader.result);
+        };
+        reader.readAsDataURL(file);
+      } else if (file.type === 'application/pdf') {
+        setPreviewURL(URL.createObjectURL(file));
+      } else {
+        setPreviewURL(null);
+      }
     } else {
       helpers.setValue(null);
       setPreviewURL(null);
     }
   };
 
-  const imageStyles = {
+  const previewStyles = {
     width: '120px',
     height: '120px',
     alignSelf: 'center',
+  };
+
+  const supportTextStyles = {
+    display: previewURL ? 'none' : 'block',
+    color: 'red',
   };
 
   return (
@@ -56,15 +68,26 @@ const FieldFileInput = ({ classes, name, ...rest }) => {
         className={fileInput}
         id="fileInput"
         type="file"
+        accept=".jpg, .png, .jpeg, .pdf"
       />
-      {previewURL && (
+      <span style={supportTextStyles}>
+        Supports only (*.jpeg, *.jpg, *.png, *.pdf)
+      </span>
+      {previewURL && value.type.startsWith('image') ? (
         <img
           src={previewURL}
           alt="Preview"
-          style={imageStyles}
-          className={previewImage}
+          style={previewStyles}
+          className={imagePreview}
         />
-      )}
+      ) : previewURL && value.type === 'application/pdf' ? (
+        <object
+          data={previewURL}
+          type="application/pdf"
+          width="120"
+          height="120"
+        ></object>
+      ) : null}
     </div>
   );
 };
