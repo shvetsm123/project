@@ -209,7 +209,7 @@ const resolveOffer = async (
   const arrayRoomsId = [];
   updatedOffers.forEach((offer) => {
     if (
-      offer.status === CONSTANTS.OFFER_STATUS_REJECTED &&
+      offer.status === CONSTANTS.OFFER_STATUS_WON &&
       creatorId !== offer.userId
     ) {
       arrayRoomsId.push(offer.userId);
@@ -218,13 +218,10 @@ const resolveOffer = async (
   controller
     .getNotificationController()
     .emitChangeOfferStatus(
-      arrayRoomsId,
-      'Someone of yours offers was rejected',
+      creatorId,
+      'Congrats! You just win a contest!',
       contestId
     );
-  controller
-    .getNotificationController()
-    .emitChangeOfferStatus(creatorId, 'Someone of your offers WIN', contestId);
   return updatedOffers[0].dataValues;
 };
 
