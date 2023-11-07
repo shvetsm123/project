@@ -5,7 +5,7 @@ import moment from 'moment';
 import styles from './ContestSideBar.module.sass';
 import CONSTANTS from '../../constants';
 
-const ContestSideBar = props => {
+const ContestSideBar = (props) => {
   const getTimeStr = () => {
     const diff = moment.duration(
       moment().diff(moment(props.contestData.createdAt))
@@ -19,7 +19,10 @@ const ContestSideBar = props => {
 
   const renderContestInfo = () => {
     const { totalEntries } = props;
-    const { User, prize } = props.contestData;
+    const { User, prize, status } = props.contestData;
+    const statusText =
+      status === CONSTANTS.CONTEST_STATUS_ACTIVE ? 'Going' : 'Completed';
+
     return (
       <div className={styles.contestSideBarInfo}>
         <div className={styles.contestInfo}>
@@ -27,7 +30,7 @@ const ContestSideBar = props => {
             <div className={styles.prizeContainer}>
               <img
                 src={`${CONSTANTS.STATIC_IMAGES_PATH}big-diamond.png`}
-                alt='diamond'
+                alt="diamond"
               />
               <span>{`$ ${prize}`}</span>
             </div>
@@ -35,9 +38,9 @@ const ContestSideBar = props => {
               <div className={styles.timeDesc}>
                 <img
                   src={`${CONSTANTS.STATIC_IMAGES_PATH}clock.png`}
-                  alt='clock'
+                  alt="clock"
                 />
-                <span>Going</span>
+                <span>{statusText}</span>
               </div>
               <span className={styles.time}>{getTimeStr()}</span>
             </div>
@@ -45,7 +48,7 @@ const ContestSideBar = props => {
               <div>
                 <img
                   src={`${CONSTANTS.STATIC_IMAGES_PATH}smallCheck.png`}
-                  alt='check'
+                  alt="check"
                 />
               </div>
               <span>Guaranteed prize</span>
@@ -71,7 +74,7 @@ const ContestSideBar = props => {
                     ? CONSTANTS.ANONYM_IMAGE_PATH
                     : `${CONSTANTS.publicURL}${User.avatar}`
                 }
-                alt='user'
+                alt="user"
               />
               <div className={styles.customerNameContainer}>
                 <span>{`${User.firstName} ${User.lastName}`}</span>
@@ -87,6 +90,6 @@ const ContestSideBar = props => {
   return renderContestInfo();
 };
 
-const mapStateToProps = state => state.userStore;
+const mapStateToProps = (state) => state.userStore;
 
 export default connect(mapStateToProps, null)(ContestSideBar);
