@@ -3,8 +3,8 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Rating extends Model {
     static associate({ User, Offer }) {
-      Offer.belongsTo(User, { foreignKey: 'userId', sourceKey: 'id' });
-      Offer.belongsTo(Offer, { foreignKey: 'offerId', sourceKey: 'id' });
+      Rating.belongsTo(User, { foreignKey: 'userId', sourceKey: 'id' });
+      Rating.belongsTo(Offer, { foreignKey: 'offerId', sourceKey: 'id' });
     }
   }
 

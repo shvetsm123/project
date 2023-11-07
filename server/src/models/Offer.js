@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate({ User, Contest, Rating }) {
       Offer.belongsTo(User, { foreignKey: 'userId', sourceKey: 'id' });
       Offer.belongsTo(Contest, { foreignKey: 'contestId', sourceKey: 'id' });
-      Offer.hasOne(Rating, { foreignKey: 'offerId', sourceKey: 'id' });
+      Offer.hasOne(Rating, { foreignKey: 'offerId', targetKey: 'id' });
     }
   }
 
