@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Formik } from 'formik';
+import { Form, Formik, useField } from 'formik';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import CONSTANTS from '../../constants';
@@ -41,19 +41,13 @@ class ContestForm extends React.Component {
         break;
       }
       case CONSTANTS.TAGLINE_CONTEST: {
-        this.props.getData({
-          characteristic1: 'typeOfTagline',
-        });
+        this.props.getData({ characteristic1: 'typeOfTagline' });
         break;
       }
       case CONSTANTS.LOGO_CONTEST: {
-        this.props.getData({
-          characteristic1: 'brandStyle',
-        });
+        this.props.getData({ characteristic1: 'brandStyle' });
         break;
       }
-      default:
-        break;
     }
   };
 
