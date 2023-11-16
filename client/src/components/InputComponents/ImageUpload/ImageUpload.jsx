@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { useField } from 'formik';
 
 const ImageUpload = (props) => {
-  const [{ value, ...restFields }, meta, helpers] = useField(props.name);
+  const [{ value, ...restFields }, , helpers] = useField(props.name);
   const { uploadContainer, inputContainer, imgStyle } = props.classes;
   const [previewURL, setPreviewURL] = useState(null);
 
   const onChange = (e) => {
-    const node = window.document.getElementById('imagePreview');
     const file = e.target.files[0];
     const imageType = /image.*/;
     if (!file.type.match(imageType)) {

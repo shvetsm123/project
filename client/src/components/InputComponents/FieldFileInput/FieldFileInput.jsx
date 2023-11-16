@@ -8,9 +8,8 @@ const FieldFileInput = ({ classes, name, ...rest }) => {
     fileNameClass,
     fileInput,
     imagePreview,
-    pdfPreview,
   } = classes;
-  const [{ value, ...restFields }, meta, helpers] = useField(name);
+  const [{ value, ...restFields }, , helpers] = useField(name);
   const getFileName = () => {
     if (value) {
       return value.name;
@@ -86,6 +85,7 @@ const FieldFileInput = ({ classes, name, ...rest }) => {
           type="application/pdf"
           width="120"
           height="120"
+          aria-label="pdf"
         ></object>
       ) : null}
     </div>
