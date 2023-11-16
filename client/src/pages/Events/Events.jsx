@@ -13,7 +13,6 @@ const Events = () => {
         <p className={styles.p}>* - required</p>
         <Timer />
       </div>
-
       <Footer />
     </div>
   );
