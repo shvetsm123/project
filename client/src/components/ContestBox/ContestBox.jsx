@@ -24,8 +24,14 @@ const ContestBox = (props) => {
     string.charAt(0).toUpperCase() + string.slice(1);
 
   const { id, title, contestType, prize, count, status } = props.data;
-  const statusText =
-    status === CONSTANTS.CONTEST_STATUS_ACTIVE ? 'Going' : 'Completed';
+  let statusText;
+  if (status === CONSTANTS.CONTEST_STATUS_ACTIVE) {
+    statusText = 'Going';
+  } else if (status === CONSTANTS.CONTEST_STATUS_FINISHED) {
+    statusText = 'Completed';
+  } else {
+    statusText = 'Pending';
+  }
 
   return (
     <div
