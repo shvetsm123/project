@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import valid from 'card-validator';
 
-export default {
+const Schems = {
   LoginSchem: yup.object().shape({
     email: yup.string().email('check email').required('required'),
     password: yup
@@ -214,3 +214,5 @@ export default {
       .required('required'),
   }),
 };
+
+export default Schems;
