@@ -59,6 +59,8 @@ const SliderBar = (props) => {
           </div>
         ));
       }
+      default:
+        return null;
     }
   };
   return (
