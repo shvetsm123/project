@@ -49,4 +49,48 @@ WHERE "id" IN (
 );
 
 
+// разработка чатов на sql - 8 таска
+
+// Создание каталога и чатов внутри каждого каталога
+CREATE TABLE "Catalog1" (
+  id SERIAL PRIMARY KEY,
+  "userId" INT NOT NULL,
+  "catalogName" VARCHAR(255) NOT NULL,
+  CONSTRAINT fk_user FOREIGN KEY ("userId") REFERENCES "Users"(id)
+);
+DROP TABLE "Catalog1";
+
+CREATE TABLE "CatalogChats1" (
+  id SERIAL PRIMARY KEY,
+  "catalogId" INT NOT NULL,
+  "chatId" INT NOT NULL,
+  CONSTRAINT fk_catalog FOREIGN KEY ("catalogId") REFERENCES "Catalog1"(id),
+  CONSTRAINT fk_chat FOREIGN KEY ("chatId") REFERENCES "Conversation1"(id)
+);
+DROP TABLE "CatalogChats1";
+
+
+// Создание конверсейшн
+CREATE TABLE "Conversation1" (
+  id SERIAL PRIMARY KEY,
+  participants INT[] NOT NULL,
+  "blackList" BOOLEAN[] NOT NULL,
+  "favoriteList" BOOLEAN[] NOT NULL
+);
+DROP TABLE "Conversation1";
+
+// Создание мессейджей
+CREATE TABLE "Message1" (
+  id SERIAL PRIMARY KEY,
+  sender INT NOT NULL,
+  body TEXT NOT NULL,
+  "conversationId" INT NOT NULL,
+  createdAt TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_sender FOREIGN KEY (sender) REFERENCES "Users"(id),
+  CONSTRAINT fk_conversation FOREIGN KEY ("conversationId") REFERENCES "Conversation1"(id)
+);
+DROP TABLE "Message1";
+
+
+
 
