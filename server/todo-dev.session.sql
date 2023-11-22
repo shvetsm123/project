@@ -36,5 +36,17 @@ UPDATE "Users"
 SET "balance" = "balance" + ("balance" * 0.1 * COALESCE((SELECT COUNT(*) FROM "Contests" WHERE "userId" = "Users"."id" AND "createdAt" BETWEEN '2023-12-25' AND '2024-01-14'), 0));
 WHERE "role" = 'customer';
 
+// апдейт баланса топ3 creators на +10 долларов - 11 таска
+
+UPDATE "Users"
+SET "balance" = "balance" + 10
+WHERE "id" IN (
+  SELECT "id"
+  FROM "Users"
+  WHERE "role" = 'creator'
+  ORDER BY "rating" DESC
+  LIMIT 3
+);
+
 
 
