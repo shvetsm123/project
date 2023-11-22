@@ -7,6 +7,7 @@ function logError(error) {
   const logEntry = {
     message: error.message || 'Unknown error',
     time: new Date().toISOString(),
+    code: error.code,
     stackTrace: error.stack || 'No stack trace available',
   };
 
