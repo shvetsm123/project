@@ -30,11 +30,16 @@ FROM
 WHERE
   "role" = 'customer';
 
-// апдейт баланса (не выполнял) - 10 таска
+// апдейт баланса - 10 таска
 
 UPDATE "Users"
-SET "balance" = "balance" + ("balance" * 0.1 * COALESCE((SELECT COUNT(*) FROM "Contests" WHERE "userId" = "Users"."id" AND "createdAt" BETWEEN '2023-12-25' AND '2024-01-14'), 0));
+SET "balance" = "balance" + ("balance" * 0.1 * COALESCE((
+  SELECT COUNT(*)
+  FROM "Contests"
+  WHERE "userId" = "Users"."id" AND "createdAt" BETWEEN '2023-12-25' AND '2024-01-14'
+), 0))
 WHERE "role" = 'customer';
+
 
 // апдейт баланса топ3 creators на +10 долларов - 11 таска
 
