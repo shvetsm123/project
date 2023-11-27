@@ -196,11 +196,7 @@ const Schems = {
   MessageSchema: yup.object({
     message: yup
       .string()
-      .test(
-        'test-message',
-        'required',
-        (value) => value && value.trim().length >= 1
-      )
+      .test('test-message', ' ', (value) => value && value.trim().length >= 1)
       .required('required'),
   }),
   CatalogSchema: yup.object({
